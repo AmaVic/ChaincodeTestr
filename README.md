@@ -4,7 +4,7 @@ CLI application that supports the execution of a test suite on a B-MERODE chainc
 # Running the Application
 Using the terminal, go into the bin folder, and you can run the following commands:
 ```shell
-./ChaincodeTestr --help 
+./ChaincoderTestr --help 
 ```
 You obtain the following output:
 ```shell
@@ -22,7 +22,7 @@ Options:
 ```
 To run a test suite, you need to specify all the options above. For instance:
 ```shell
-./ChaincodeTestr --wallet-path chaincode-test/wallets/org1 --identity-name "Org1 Admin" --connection-profile-path chaincode-test/connection-profiles/org1.json --chaincode-name rea --test-suite-path chaincode-test/suites/happy-path-test-suite.json
+./ChaincoderTestr --wallet-path chaincode-test/wallets/org1 --identity-name "Org1 Admin" --connection-profile-path chaincode-test/connection-profiles/org1.json --chaincode-name rea --test-suite-path chaincode-test/suites/happy-path-test-suite.json
 ```
 
 Assuming that the HLF network is running and that the provided details are correct, the example provides the following output:
