@@ -1,4 +1,7 @@
 # ChaincodeTestr
+[![Build](https://github.com/AmaVic/ChaincodeTestr/actions/workflows/build.yml/badge.svg)](https://github.com/AmaVic/ChaincodeTestr/actions/workflows/build.yml)
+
+
 CLI application that supports the execution of a test suite on a B-MERODE chaincode, deployed on a HLF network.
 The below video provides the explanation and a demonstration. The remainder of the README provides all the detailed explanations.
 
