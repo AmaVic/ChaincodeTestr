@@ -28,7 +28,7 @@ class TestChaincode: CliktCommand() {
         terminal.println("Test Suite Specification: ${testSuitePath!!.toAbsolutePath()}")
 
         terminal.println("===== Parsing Test Suite =====")
-        var testSuite: ChaincodeTestSuite? = null
+        var testSuite: ChaincodeTestSuite?
         try {
             testSuite = ChaincodeTestSuite.fromJson(testSuitePath!!.toFile().readText())
             terminal.println("Test Suite Successfully Parsed: ${testSuite.testsCases.size} test cases found")
@@ -38,7 +38,7 @@ class TestChaincode: CliktCommand() {
         }
 
         terminal.println("===== Connection to the Network =====")
-        var connection: Connection? = null
+        var connection: Connection?
         try {
             connection = ChaincodeTestr(config).connect()
             terminal.println("Successfully connected to the network")
@@ -48,7 +48,7 @@ class TestChaincode: CliktCommand() {
         }
 
         terminal.println("===== Initializing Collaboration with Sender as Participants Handler =====")
-        val contractHandler = ContractHandler(connection!!.contract)
+        val contractHandler = ContractHandler(connection.contract)
         try {
             contractHandler.initializeCollaboration()
         } catch(e: ContractTransactionException) {

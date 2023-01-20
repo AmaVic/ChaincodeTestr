@@ -19,12 +19,11 @@ class ContractHandler(private val contract: Contract) {
         return ChaincodeTestSuiteResult(testSuite.name, results)
     }
 
-    fun runTest(test: ChaincodeTestCase): ChaincodeTestResult {
+    private fun runTest(test: ChaincodeTestCase): ChaincodeTestResult {
         ChaincodeApplication.logger.info { "Running test: ${test.name}" }
         val errors = mutableListOf<String>()
-        var txResult: String? = null
         try {
-            txResult = handleEvent(test.businessEventName, test.payload)
+            handleEvent(test.businessEventName, test.payload)
             if(!test.expectedToSucceed)
                 return FailedChaincodeTestResult(test, listOf("Expected transaction to fail, but it succeeded"))
 
@@ -37,7 +36,7 @@ class ContractHandler(private val contract: Contract) {
         }
 
         test.expectedAttributeValues.forEach { expectedAttributeValue ->
-            var boJson: JsonBusinessObject? = null
+            var boJson: JsonBusinessObject?
             try {
                 boJson = getBusinessObject(expectedAttributeValue.boId)
             } catch(e: ContractTransactionException) {
@@ -45,14 +44,14 @@ class ContractHandler(private val contract: Contract) {
                 return FailedChaincodeTestResult(test, errors)
             }
 
-            val actualValue = boJson!!.getAttributeValue<Any>(expectedAttributeValue.attributeName)
+            val actualValue = boJson.getAttributeValue<Any>(expectedAttributeValue.attributeName)
             if(actualValue != expectedAttributeValue.expectedValue) {
                 errors.add("Expected value for attribute ${expectedAttributeValue.attributeName} of Business Object ${expectedAttributeValue.boId} to be ${expectedAttributeValue.expectedValue}, but it was $actualValue")
             }
         }
 
         test.expectedBOStates.forEach { expectedState ->
-            var boJson: JsonBusinessObject? = null
+            var boJson: JsonBusinessObject?
             try {
                 boJson = getBusinessObject(expectedState.boId)
             } catch(e: ContractTransactionException) {
