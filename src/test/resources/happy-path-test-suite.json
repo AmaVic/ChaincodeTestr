@@ -1,0 +1,303 @@
+{
+    "name": "Happy Path REA",
+    "testsCases": [
+        {
+            "name": "Create First EconomicAgent (Elmo)",
+            "businessEventName": "EVcrEconomicAgent",
+            "payload": {
+                "publicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEgOLRq5EfCg5id5S0DKMGURLcTb13fc39DwvfHDNGQ2knn2TX0tV5DoYCufihTXEwpdBtL+Zl+k/AF0oMP3JBLw==",
+                "Name": "Elmo"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": true,
+            "expectedAttributeValues": [
+                {
+                    "boId": "EconomicAgent#0",
+                    "attributeName": "name",
+                    "expectedValue": "Elmo"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "EconomicAgent#0",
+                    "expectedStateName": "exists"
+                }
+            ]
+        },
+        {
+            "name": "Create Second EconomicAgent(Cookie)",
+            "businessEventName": "EVcrEconomicAgent",
+            "payload": {
+                "publicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEIO2N4gQqfOG47ZjSHSepnq2ie52YXWOm2VdAL+kJgQMUibuDAeDNSGNiPD/quwKpAeZ1mZ1fCO6Bh+oNeXzdZw==",
+                "Name": "Cookie"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [
+                {
+                    "boId": "EconomicAgent#1",
+                    "attributeName": "name",
+                    "expectedValue": "Cookie"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "EconomicAgent#0",
+                    "expectedStateName": "exists"
+                },
+                {
+                    "boId": "EconomicAgent#1",
+                    "expectedStateName": "exists"
+                }
+            ]
+        },
+        {
+            "name": "Create Economic Resource Resource (Cookie)",
+            "businessEventName": "EVcrEconomicResource",
+            "payload": {
+                "Name": "Cookie"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [
+                {
+                    "boId": "EconomicResource#0",
+                    "attributeName": "name",
+                    "expectedValue": "Cookie"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "EconomicAgent#0",
+                    "expectedStateName": "exists"
+                },
+                {
+                    "boId": "EconomicAgent#1",
+                    "expectedStateName": "exists"
+                },
+                {
+                    "boId": "EconomicResource#0",
+                    "expectedStateName": "exists"
+                }
+            ]
+        },
+        {
+            "name": "Create Economic Resource Resource (Cash)",
+            "businessEventName": "EVcrEconomicResource",
+            "payload": {
+                "Name": "Cash"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [
+                {
+                    "boId": "EconomicResource#1",
+                    "attributeName": "name",
+                    "expectedValue": "Cash"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "EconomicAgent#0",
+                    "expectedStateName": "exists"
+                },
+                {
+                    "boId": "EconomicAgent#1",
+                    "expectedStateName": "exists"
+                },
+                {
+                    "boId": "EconomicResource#0",
+                    "expectedStateName": "exists"
+                },
+                {
+                    "boId": "EconomicResource#1",
+                    "expectedStateName": "exists"
+                }
+            ]
+        },
+        {
+            "name": "Register Ownership of Cash by Cookie",
+            "businessEventName": "EVcrOwnership",
+            "payload": {
+                "Name": "CashOwnedByCookie",
+                "economicResourceId_EconomicResource_Ownership": "EconomicResource#1",
+                "economicAgentId_EconomicAgent_Ownership": "EconomicAgent#1"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [
+                {
+                    "boId": "Ownership#0",
+                    "attributeName": "name",
+                    "expectedValue": "CashOwnedByCookie"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "EconomicAgent#0",
+                    "expectedStateName": "exists"
+                },
+                {
+                    "boId": "EconomicAgent#1",
+                    "expectedStateName": "exists"
+                },
+                {
+                    "boId": "EconomicResource#0",
+                    "expectedStateName": "exists"
+                },
+                {
+                    "boId": "EconomicResource#1",
+                    "expectedStateName": "exists"
+                },
+                {
+                    "boId": "Ownership#0",
+                    "expectedStateName": "image"
+                }
+            ]
+        },
+        {
+            "name": "Register Ownership of Cookie by Elmo",
+            "businessEventName": "EVcrOwnership",
+            "payload": {
+                "Name": "CookieOwnedByElmo",
+                "economicResourceId_EconomicResource_Ownership": "EconomicResource#0",
+                "economicAgentId_EconomicAgent_Ownership": "EconomicAgent#0"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [
+                {
+                    "boId": "Ownership#1",
+                    "attributeName": "name",
+                    "expectedValue": "CookieOwnedByElmo"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "EconomicAgent#0",
+                    "expectedStateName": "exists"
+                },
+                {
+                    "boId": "EconomicAgent#1",
+                    "expectedStateName": "exists"
+                },
+                {
+                    "boId": "EconomicResource#0",
+                    "expectedStateName": "exists"
+                },
+                {
+                    "boId": "EconomicResource#1",
+                    "expectedStateName": "exists"
+                },
+                {
+                    "boId": "Ownership#0",
+                    "expectedStateName": "image"
+                },
+                {
+                    "boId": "Ownership#1",
+                    "expectedStateName": "image"
+                }
+            ]
+        },
+        {
+            "name": "Create Economic Event (delivery)",
+            "businessEventName": "EVcrEconomicEvent",
+            "payload": {
+                "Name": "delivery",
+                "TimeStamp": null,
+                "CountDependentViews": 0
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [
+                {
+                    "boId": "EconomicEvent#0",
+                    "attributeName": "name",
+                    "expectedValue": "delivery"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "EconomicAgent#0",
+                    "expectedStateName": "exists"
+                },
+                {
+                    "boId": "EconomicAgent#1",
+                    "expectedStateName": "exists"
+                },
+                {
+                    "boId": "EconomicResource#0",
+                    "expectedStateName": "exists"
+                },
+                {
+                    "boId": "EconomicResource#1",
+                    "expectedStateName": "exists"
+                },
+                {
+                    "boId": "Ownership#0",
+                    "expectedStateName": "image"
+                },
+                {
+                    "boId": "Ownership#1",
+                    "expectedStateName": "image"
+                },
+                {
+                    "boId": "EconomicEvent#0",
+                    "expectedStateName": "business event"
+                }
+            ]
+        },
+        {
+            "name": "Create Economic Event (payment)",
+            "businessEventName": "EVcrEconomicEvent",
+            "payload": {
+                "Name": "payment",
+                "TimeStamp": null,
+                "CountDependentViews": 0
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [
+                {
+                    "boId": "EconomicEvent#1",
+                    "attributeName": "name",
+                    "expectedValue": "payment"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "EconomicAgent#0",
+                    "expectedStateName": "exists"
+                },
+                {
+                    "boId": "EconomicAgent#1",
+                    "expectedStateName": "exists"
+                },
+                {
+                    "boId": "EconomicResource#0",
+                    "expectedStateName": "exists"
+                },
+                {
+                    "boId": "EconomicResource#1",
+                    "expectedStateName": "exists"
+                },
+                {
+                    "boId": "Ownership#0",
+                    "expectedStateName": "image"
+                },
+                {
+                    "boId": "Ownership#1",
+                    "expectedStateName": "image"
+                },
+                {
+                    "boId": "EconomicEvent#0",
+                    "expectedStateName": "business event"
+                },
+                {
+                    "boId": "EconomicEvent#1",
+                    "expectedStateName": "business event"
+                }
+            ]
+        }
+    ]
+}
