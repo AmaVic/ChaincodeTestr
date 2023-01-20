@@ -1,6 +1,7 @@
 # ChaincodeTestr
 CLI application that supports the execution of a test suite on a B-MERODE chaincode, deployed on a HLF network.
 The below video provides the explanation and a demonstration. The remainder of the README provides all the detailed explanations.
+[![B-MERODE Chaincode Tester Demo](https://img.youtube.com/vi/V4gcxtX9kZk/0.jpg)](https://www.youtube.com/watch?v=V4gcxtX9kZk)
 
 
 # Running the Application
