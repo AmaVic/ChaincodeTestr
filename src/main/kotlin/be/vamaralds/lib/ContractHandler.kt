@@ -32,7 +32,7 @@ class ContractHandler(private val contract: Contract) {
 
         } catch(e: ContractTransactionException) {
             if(test.expectedToSucceed)
-                return FailedChaincodeTestResult(test, listOf("Expected transaction to succeed, but it failed (${e.message})"))
+                return FailedChaincodeTestResult(test, listOf("Expected transaction to succeed, but it failed (${e.stackTrace})"))
         }
 
         test.expectedAttributeValues.forEach { expectedAttributeValue ->
