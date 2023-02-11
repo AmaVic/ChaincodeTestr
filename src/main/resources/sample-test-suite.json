@@ -1,0 +1,1043 @@
+{
+    "name": "Happy Path REA - Unmodified",
+    "testsCases": [
+        {
+            "name": "Create First EconomicAgent (Elmo)",
+            "businessEventName": "EVcrEconomicAgent",
+            "payload": {
+                "publicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEXWbYKba4e++oo8JSYZx/NR+9XGtRSOR5kWxiGuUV7+/1cvvuNj4HuGXIPOmo3jQIVF33q1YYkT3WmiyQivkGDg==",
+                "Name": "Elmo"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": true,
+            "expectedAttributeValues": [
+                {
+                    "boId": "EconomicAgent#0",
+                    "attributeName": "name",
+                    "expectedValue": "Elmo"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "EconomicAgent#0",
+                    "expectedStateName": "exists"
+                }
+            ]
+        },
+        {
+            "name": "Create Second EconomicAgent(Monster)",
+            "businessEventName": "EVcrEconomicAgent",
+            "payload": {
+                "publicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEHOHKPZKJEmfZGDcQEnj70wyu4Jb0cykC/Zg5AtHC/512Lh/29NXhLLncTMST8K6Pa+Lq7rSLNXtT9765to0O0w==",
+                "Name": "Monster"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [
+                {
+                    "boId": "EconomicAgent#1",
+                    "attributeName": "name",
+                    "expectedValue": "Monster"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "EconomicAgent#0",
+                    "expectedStateName": "exists"
+                },
+                {
+                    "boId": "EconomicAgent#1",
+                    "expectedStateName": "exists"
+                }
+            ]
+        },
+        {
+            "name": "Create Economic Resource Resource (Cookie)",
+            "businessEventName": "EVcrEconomicResource",
+            "payload": {
+                "Name": "Cookie"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [
+                {
+                    "boId": "EconomicResource#0",
+                    "attributeName": "name",
+                    "expectedValue": "Cookie"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "EconomicAgent#0",
+                    "expectedStateName": "exists"
+                },
+                {
+                    "boId": "EconomicAgent#1",
+                    "expectedStateName": "exists"
+                },
+                {
+                    "boId": "EconomicResource#0",
+                    "expectedStateName": "exists"
+                }
+            ]
+        },
+        {
+            "name": "Create Economic Resource Resource (Cash)",
+            "businessEventName": "EVcrEconomicResource",
+            "payload": {
+                "Name": "Cash"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [
+                {
+                    "boId": "EconomicResource#1",
+                    "attributeName": "name",
+                    "expectedValue": "Cash"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "EconomicAgent#0",
+                    "expectedStateName": "exists"
+                },
+                {
+                    "boId": "EconomicAgent#1",
+                    "expectedStateName": "exists"
+                },
+                {
+                    "boId": "EconomicResource#0",
+                    "expectedStateName": "exists"
+                },
+                {
+                    "boId": "EconomicResource#1",
+                    "expectedStateName": "exists"
+                }
+            ]
+        },
+        {
+            "name": "Create Economic Event (cookieInFlow)",
+            "businessEventName": "EVcrEconomicEvent",
+            "payload": {
+                "Name": "cookieInFlow",
+                "TimeStamp": null,
+                "CountDependentViews": 0
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [
+                {
+                    "boId": "EconomicEvent#0",
+                    "attributeName": "name",
+                    "expectedValue": "cookieInFlow"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "EconomicEvent#0",
+                    "expectedStateName": "businessEvent"
+                }
+            ]
+        },
+        {
+            "name": "Create Economic Event (cashInFlow)",
+            "businessEventName": "EVcrEconomicEvent",
+            "payload": {
+                "Name": "cashInFlow",
+                "TimeStamp": null,
+                "CountDependentViews": 0
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [
+                {
+                    "boId": "EconomicEvent#1",
+                    "attributeName": "name",
+                    "expectedValue": "cashInFlow"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "EconomicEvent#1",
+                    "expectedStateName": "businessEvent"
+                }
+            ]
+        },
+        {
+            "name": "Create StockFlow: Cookie assoc. w/ cookieInFlow",
+            "businessEventName": "EVcrStockFlow",
+            "payload": {
+                "Name": "CookieP",
+                "Quantity": 1,
+                "MarketValue": 1,
+                "economicResourceId_EconomicResource_StockFlow": "EconomicResource#0",
+                "economicEventId_EconomicEvent_StockFlow": "EconomicEvent#0"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [
+                {
+                    "boId": "StockFlow#0",
+                    "attributeName": "name",
+                    "expectedValue": "CookieP"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "StockFlow#0",
+                    "expectedStateName": "use"
+                },
+                {
+                    "boId": "EconomicEvent#0",
+                    "expectedStateName": "economicEvent"
+                }
+            ]
+        },
+        {
+            "name": "Create StockFlow: Cash assoc. w/ cashInFlow",
+            "businessEventName": "EVcrStockFlow",
+            "payload": {
+                "Name": "CashP",
+                "Quantity": 1,
+                "MarketValue": 1,
+                "economicResourceId_EconomicResource_StockFlow": "EconomicResource#1",
+                "economicEventId_EconomicEvent_StockFlow": "EconomicEvent#1"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [
+                {
+                    "boId": "StockFlow#0",
+                    "attributeName": "name",
+                    "expectedValue": "CookieP"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "StockFlow#1",
+                    "expectedStateName": "use"
+                },
+                {
+                    "boId": "EconomicEvent#1",
+                    "expectedStateName": "economicEvent"
+                }
+            ]
+        },
+        {
+            "name": "Create Ownership (Elmo Owns Cookie)",
+            "businessEventName": "EVcrOwnership",
+            "payload": {
+                "Name": "byElmo",
+                "economicResourceId_EconomicResource_Ownership": "EconomicResource#0",
+                "economicAgentId_EconomicAgent_Ownership": "EconomicAgent#0"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [ 
+                {
+                "boId": "Ownership#0",
+                "attributeName": "name",
+                "expectedValue": "byElmo"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "Ownership#0",
+                    "expectedStateName": "image"
+                }
+            ]
+        },
+        {
+            "name": "Create Ownership (Monster Owns Cash)",
+            "businessEventName": "EVcrOwnership",
+            "payload": {
+                "Name": "byMonster",
+                "economicResourceId_EconomicResource_Ownership": "EconomicResource#1",
+                "economicAgentId_EconomicAgent_Ownership": "EconomicAgent#1"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [ 
+                {
+                "boId": "Ownership#1",
+                "attributeName": "name",
+                "expectedValue": "byMonster"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "Ownership#1",
+                    "expectedStateName": "image"
+                }
+            ]
+        }, 
+        {
+            "name": "Create Participation (Elmo Participates in cookieInFlow)",
+            "businessEventName": "EVcrParticipation",
+            "payload": {
+                "Name": "ofElmo",
+                "economicEventId_EconomicEvent_Participation": "EconomicEvent#0",
+                "economicAgentId_EconomicAgent_Participation": "EconomicAgent#0"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [ 
+                {
+                "boId": "Participation#0",
+                "attributeName": "name",
+                "expectedValue": "ofElmo"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "Participation#0",
+                    "expectedStateName": "undirected"
+                }
+            ]
+        },
+        {
+            "name": "Create Participation (Monster Participates in cashInFlow)",
+            "businessEventName": "EVcrParticipation",
+            "payload": {
+                "Name": "ofMonster",
+                "economicEventId_EconomicEvent_Participation": "EconomicEvent#1",
+                "economicAgentId_EconomicAgent_Participation": "EconomicAgent#1"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [ 
+                {
+                "boId": "Participation#1",
+                "attributeName": "name",
+                "expectedValue": "ofMonster"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "Participation#1",
+                    "expectedStateName": "undirected"
+                }
+            ]
+        },
+        {
+            "name": "Create DummyCookie",
+            "businessEventName": "EVcrEconomicResource",
+            "payload": {
+                "Name": "DummyCookie"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [
+                {
+                    "boId": "EconomicResource#2",
+                    "attributeName": "name",
+                    "expectedValue": "DummyCookie"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "EconomicResource#2",
+                    "expectedStateName": "exists"
+                }
+            ]
+        },
+        {
+            "name": "Create DummyCash",
+            "businessEventName": "EVcrEconomicResource",
+            "payload": {
+                "Name": "DummyCash"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [
+                {
+                    "boId": "EconomicResource#3",
+                    "attributeName": "name",
+                    "expectedValue": "DummyCash"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "EconomicResource#3",
+                    "expectedStateName": "exists"
+                }
+            ]
+        },
+        {
+            "name": "Create Economic Event (dummyCookieConsumption)",
+            "businessEventName": "EVcrEconomicEvent",
+            "payload": {
+                "Name": "dummyCookieConsumption",
+                "TimeStamp": null,
+                "CountDependentViews": 0
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [
+                {
+                    "boId": "EconomicEvent#2",
+                    "attributeName": "name",
+                    "expectedValue": "dummyCookieConsumption"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "EconomicEvent#2",
+                    "expectedStateName": "businessEvent"
+                }
+            ]
+        },
+        {
+            "name": "Create Economic Event (dummyCashConsumption)",
+            "businessEventName": "EVcrEconomicEvent",
+            "payload": {
+                "Name": "dummyCashConsumption",
+                "TimeStamp": null,
+                "CountDependentViews": 0
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [
+                {
+                    "boId": "EconomicEvent#3",
+                    "attributeName": "name",
+                    "expectedValue": "dummyCashConsumption"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "EconomicEvent#3",
+                    "expectedStateName": "businessEvent"
+                }
+            ]
+        },
+        {
+            "name": "Create StockFlow (dummyCookieOutflow relates DummyCookie to dummyCookieConsumption)",
+            "businessEventName": "EVcrStockFlow",
+            "payload": {
+                "Name": "dummyCookie",
+                "Quantity": 0,
+                "MarketValue": 0,
+                "economicResourceId_EconomicResource_StockFlow": "EconomicResource#2",
+                "economicEventId_EconomicEvent_StockFlow": "EconomicEvent#2"
+            
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [
+                {
+                    "boId": "StockFlow#2",
+                    "attributeName": "name",
+                    "expectedValue": "dummyCookie"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "StockFlow#2",
+                    "expectedStateName": "use"
+                }
+            ]
+        },
+        {
+            "name": "Create StockFlow (dummyCashOutflow relates DummyCash to dummyCashConsumption)",
+            "businessEventName": "EVcrStockFlow",
+            "payload": {
+                "Name": "dummyCash",
+                "Quantity": 0,
+                "MarketValue": 0,
+                "economicResourceId_EconomicResource_StockFlow": "EconomicResource#3",
+                "economicEventId_EconomicEvent_StockFlow": "EconomicEvent#3"
+            
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [
+                {
+                    "boId": "StockFlow#3",
+                    "attributeName": "name",
+                    "expectedValue": "dummyCash"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "StockFlow#3",
+                    "expectedStateName": "use"
+                }
+            ]
+        },
+        {
+            "name": "Create Duality (dummyCookieConsumptions is that claim that is settled by cookieInflow)",
+            "businessEventName": "EVcrDuality",
+            "payload": {
+                "Name": "Dummy4Cookie",
+                "economicEventId_Claim_Duality": "EconomicEvent#2",
+                "economicEventId_Settle_Duality": "EconomicEvent#0"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [
+                {
+                    "boId": "Duality#0",
+                    "attributeName": "name",
+                    "expectedValue": "Dummy4Cookie"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "Duality#0",
+                    "expectedStateName": "image"
+                }
+            ]
+        },
+        {
+            "name": "Create Duality (dummyCashConsumption is that claim that is settled by cashInflow)",
+            "businessEventName": "EVcrDuality",
+            "payload": {
+                "Name": "Dummy4Cash",
+                "economicEventId_Claim_Duality": "EconomicEvent#3",
+                "economicEventId_Settle_Duality": "EconomicEvent#1"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [
+                {
+                    "boId": "Duality#1",
+                    "attributeName": "name",
+                    "expectedValue": "Dummy4Cash"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "Duality#1",
+                    "expectedStateName": "image"
+                }
+            ]
+        },
+        {
+            "name": "Create Increment (The increment semantics affect Dummy4Cookie,CookieP,ofElmo and byElmo simultaneously)",
+            "businessEventName": "EVcrIncrement",
+            "payload": {
+                "Name": "forElmo",
+                "dualityId_Duality_Increment": "Duality#0",
+                "stockFlowId_StockFlow_Increment": "StockFlow#0",
+                "participationId_Participation_Increment": "Participation#0",
+                "ownershipId_Ownership_Increment": "Ownership#0"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [],
+            "expectedBOStates": []
+        },
+        {
+            "name": "Create Increment (The increment semantics affect Dummy4Cookie,CookieP,ofElmo and byElmo simultaneously)",
+            "businessEventName": "EVcrIncrement",
+            "payload": {
+                "Name": "forMonster",
+                "dualityId_Duality_Increment": "Duality#1",
+                "stockFlowId_StockFlow_Increment": "StockFlow#1",
+                "participationId_Participation_Increment": "Participation#1",
+                "ownershipId_Ownership_Increment": "Ownership#1"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [],
+            "expectedBOStates": [
+                {
+                    "boId": "Duality#0",
+                    "expectedStateName": "image"
+                },
+                {
+                    "boId": "Duality#1",
+                    "expectedStateName": "image"
+                },
+                {
+                    "boId": "StockFlow#0",
+                    "expectedStateName": "inflow"
+                },
+                {
+                    "boId": "StockFlow#1",
+                    "expectedStateName": "inflow"
+                },
+                {
+                    "boId": "Ownership#0",
+                    "expectedStateName": "inOwnership"
+                }, 
+                {
+                    "boId": "Ownership#1",
+                    "expectedStateName": "inOwnership"
+                },
+                {
+                    "boId": "Participation#0",
+                    "expectedStateName": "recipient"
+                },
+                {
+                    "boId": "Participation#1",
+                    "expectedStateName": "recipient"
+                }
+            ]
+        },
+        {
+            "name": "Create Economic Event (delivery)",
+            "businessEventName": "EVcrEconomicEvent",
+            "payload": {
+                "Name": "delivery",
+                "TimeStamp": null,
+                "CountDependentViews": 0
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [
+                {
+                    "boId": "EconomicEvent#4",
+                    "attributeName": "name",
+                    "expectedValue": "delivery"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "EconomicEvent#4",
+                    "expectedStateName": "businessEvent"
+                }
+            ]
+        },
+        {
+            "name": "Create Economic Event (payment)",
+            "businessEventName": "EVcrEconomicEvent",
+            "payload": {
+                "Name": "payment",
+                "TimeStamp": null,
+                "CountDependentViews": 0
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [
+                {
+                    "boId": "EconomicEvent#5",
+                    "attributeName": "name",
+                    "expectedValue": "payment"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "EconomicEvent#5",
+                    "expectedStateName": "businessEvent"
+                }
+            ]
+        },
+        {
+            "name": "Create Stockflow (CookieT relates Cookie to delivery)",
+            "businessEventName": "EVcrStockFlow",
+            "payload": {
+                "Name": "CookieT",
+                "Quantity": 0,
+                "MarketValue": 0,
+                "economicResourceId_EconomicResource_StockFlow": "EconomicResource#0",
+                "economicEventId_EconomicEvent_StockFlow": "EconomicEvent#4"
+            
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [
+                {
+                    "boId": "StockFlow#4",
+                    "attributeName": "name",
+                    "expectedValue": "CookieT"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "StockFlow#4",
+                    "expectedStateName": "use"
+                }
+            ]
+        },
+        {
+            "name": "Create Stockflow (CashT relates Cash to payment)",
+            "businessEventName": "EVcrStockFlow",
+            "payload": {
+                "Name": "CashT",
+                "Quantity": 0,
+                "MarketValue": 0,
+                "economicResourceId_EconomicResource_StockFlow": "EconomicResource#1",
+                "economicEventId_EconomicEvent_StockFlow": "EconomicEvent#5"
+            
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [
+                {
+                    "boId": "StockFlow#5",
+                    "attributeName": "name",
+                    "expectedValue": "CashT"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "StockFlow#5",
+                    "expectedStateName": "use"
+                }
+            ]
+        },
+        {
+            "name": "Create Ownership (Elmo wants to own the Cash: byElmoT)",
+            "businessEventName": "EVcrOwnership",
+            "payload": {
+                "Name": "byElmoT",
+                "economicResourceId_EconomicResource_Ownership": "EconomicResource#1",
+                "economicAgentId_EconomicAgent_Ownership": "EconomicAgent#0"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [ 
+                {
+                "boId": "Ownership#2",
+                "attributeName": "name",
+                "expectedValue": "byElmoT"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "Ownership#2",
+                    "expectedStateName": "image"
+                }
+            ]
+        },
+        {
+            "name": "Create Ownership (Monster wants to own the Cookie: byMonsterT)",
+            "businessEventName": "EVcrOwnership",
+            "payload": {
+                "Name": "byMonsterT",
+                "economicResourceId_EconomicResource_Ownership": "EconomicResource#0",
+                "economicAgentId_EconomicAgent_Ownership": "EconomicAgent#1"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [ 
+                {
+                "boId": "Ownership#3",
+                "attributeName": "name",
+                "expectedValue": "byMonsterT"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "Ownership#3",
+                    "expectedStateName": "image"
+                }
+            ]
+        },
+        {
+            "name": "Create Participation (Elmo participates in delivery)",
+            "businessEventName": "EVcrParticipation",
+            "payload": {
+                "Name": "fromElmo",
+                "economicEventId_EconomicEvent_Participation": "EconomicEvent#4",
+                "economicAgentId_EconomicAgent_Participation": "EconomicAgent#0"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [ 
+                {
+                "boId": "Participation#2",
+                "attributeName": "name",
+                "expectedValue": "fromElmo"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "Participation#2",
+                    "expectedStateName": "undirected"
+                }
+            ]
+        },
+        {
+            "name": "Create Participation (Monster participates in delivery)",
+            "businessEventName": "EVcrParticipation",
+            "payload": {
+                "Name": "toMonster",
+                "economicEventId_EconomicEvent_Participation": "EconomicEvent#4",
+                "economicAgentId_EconomicAgent_Participation": "EconomicAgent#1"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [ 
+                {
+                "boId": "Participation#3",
+                "attributeName": "name",
+                "expectedValue": "toMonster"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "Participation#3",
+                    "expectedStateName": "undirected"
+                }
+            ]
+        },
+        {
+            "name": "Create Participation (Elmo participates in payment)",
+            "businessEventName": "EVcrParticipation",
+            "payload": {
+                "Name": "toElmo",
+                "economicEventId_EconomicEvent_Participation": "EconomicEvent#5",
+                "economicAgentId_EconomicAgent_Participation": "EconomicAgent#0"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [ 
+                {
+                    "boId": "Participation#4",
+                    "attributeName": "name",
+                    "expectedValue": "toElmo"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "Participation#4",
+                    "expectedStateName": "undirected"
+                }
+            ]
+        },
+        {
+            "name": "Create Participation (Monster participates in payment)",
+            "businessEventName": "EVcrParticipation",
+            "payload": {
+                "Name": "fromMonster",
+                "economicEventId_EconomicEvent_Participation": "EconomicEvent#5",
+                "economicAgentId_EconomicAgent_Participation": "EconomicAgent#1"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [ 
+                {
+                "boId": "Participation#5",
+                "attributeName": "name",
+                "expectedValue": "fromMonster"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "Participation#5",
+                    "expectedStateName": "undirected"
+                }
+            ]
+        },
+        {
+            "name": "Create Duality (Cookie4Cash: delivery is that claim that is settled by payment (i.e. Elmo's view))",
+            "businessEventName": "EVcrDuality",
+            "payload": {
+                "Name": "Cookie4Cash",
+                "economicEventId_Claim_Duality": "EconomicEvent#4",
+                "economicEventId_Settle_Duality": "EconomicEvent#5"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [
+                {
+                    "boId": "Duality#2",
+                    "attributeName": "name",
+                    "expectedValue": "Cookie4Cash"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "Duality#2",
+                    "expectedStateName": "image"
+                }
+            ]
+        },
+        {
+            "name": "Create Duality (Cash4Cookie: payement is that claim that is settled by delivery (i.e. Monster's view))",
+            "businessEventName": "EVcrDuality",
+            "payload": {
+                "Name": "Cash4Cookie",
+                "economicEventId_Claim_Duality": "EconomicEvent#5",
+                "economicEventId_Settle_Duality": "EconomicEvent#4"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [
+                {
+                    "boId": "Duality#3",
+                    "attributeName": "name",
+                    "expectedValue": "Cash4Cookie"
+                }
+            ],
+            "expectedBOStates": [
+                {
+                    "boId": "Duality#3",
+                    "expectedStateName": "image"
+                }
+            ]
+        },
+        {
+            "name": "Create Increment (The increment semantics of toElmoS affect Cookie4Cash, CashT, toElmo and byElmoT simultaneously)",
+            "businessEventName": "EVcrIncrement",
+            "payload": {
+                "Name": "toElmoS",
+                "dualityId_Duality_Increment": "Duality#2",
+                "stockFlowId_StockFlow_Increment": "StockFlow#5",
+                "participationId_Participation_Increment": "Participation#4",
+                "ownershipId_Ownership_Increment": "Ownership#2"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [],
+            "expectedBOStates": []
+        },
+        {
+            "name": "Create Increment (The increment semantics of toMonster affect Cash4Cookie, CookieT, toMonster and byMonsterT  simultaneously)",
+            "businessEventName": "EVcrIncrement",
+            "payload": {
+                "Name": "toMonster",
+                "dualityId_Duality_Increment": "Duality#3",
+                "stockFlowId_StockFlow_Increment": "StockFlow#4",
+                "participationId_Participation_Increment": "Participation#3",
+                "ownershipId_Ownership_Increment": "Ownership#3"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [],
+            "expectedBOStates": [
+                {
+                    "boId": "Duality#2",
+                    "expectedStateName": "image"
+                },
+                {
+                    "boId": "Duality#3",
+                    "expectedStateName": "image"
+                },
+                {
+                    "boId": "StockFlow#4",
+                    "expectedStateName": "inflow"
+                },
+                {
+                    "boId": "StockFlow#5",
+                    "expectedStateName": "inflow"
+                },
+                {
+                    "boId": "Ownership#2",
+                    "expectedStateName": "inOwnership"
+                }, 
+                {
+                    "boId": "Ownership#3",
+                    "expectedStateName": "inOwnership"
+                },
+                {
+                    "boId": "Participation#3",
+                    "expectedStateName": "recipient"
+                },
+                {
+                    "boId": "Participation#4",
+                    "expectedStateName": "recipient"
+                }
+            ]
+        },
+        {
+            "name": "Create Decrement (The decrement semantics of fromElmo affect Cookie4Cash, CookieT, fromElmo and byElmo simultaneously)",
+            "businessEventName": "EVcrDecrement",
+            "payload": {
+                "Name": "fromElmo",
+                "dualityId_Duality_Decrement": "Duality#2",
+                "stockFlowId_StockFlow_Decrement": "StockFlow#4",
+                "participationId_Participation_Decrement": "Participation#2",
+                "ownershipId_Ownership_Decrement": "Ownership#0"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [],
+            "expectedBOStates": []
+        },
+        {
+            "name": "Create Decrement (The decrement semantics of toMonster affect Cash4Cookie, CashT, fromMonster and byMonster simultaneously)",
+            "businessEventName": "EVcrDecrement",
+            "payload": {
+                "Name": "fromMonsterS",
+                "dualityId_Duality_Decrement": "Duality#3",
+                "stockFlowId_StockFlow_Decrement": "StockFlow#5",
+                "participationId_Participation_Decrement": "Participation#5",
+                "ownershipId_Ownership_Decrement": "Ownership#1"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [],
+            "expectedBOStates": [
+                {
+                    "boId": "Duality#2",
+                    "expectedStateName": "image"
+                },
+                {
+                    "boId": "Duality#3",
+                    "expectedStateName": "image"
+                },
+                {
+                    "boId": "StockFlow#4",
+                    "expectedStateName": "transfer"
+                },
+                {
+                    "boId": "StockFlow#5",
+                    "expectedStateName": "transfer"
+                },
+                {
+                    "boId": "Ownership#0",
+                    "expectedStateName": "hadOwnership"
+                }, 
+                {
+                    "boId": "Ownership#1",
+                    "expectedStateName": "hadOwnership"
+                },
+                {
+                    "boId": "Participation#2",
+                    "expectedStateName": "provider"
+                },
+                {
+                    "boId": "Participation#5",
+                    "expectedStateName": "provider"
+                }
+            ]
+        },
+        {
+            "name": "Create DependentView (For Elmo's view: fromElmo is the decrement and toElmoS the increment)",
+            "businessEventName": "EVcrDependentView",
+            "payload": {
+                "Name": "sale",
+                "incrementId_Increment_DependentView": "Increment#2",
+                "decrementId_Decrement_DependentView": "Decrement#0"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [],
+            "expectedBOStates": []
+        },
+        {
+            "name": "Create DependentView (For Monster's view: fromMonsterS is the decrement and toMonster the increment)",
+            "businessEventName": "EVcrDependentView",
+            "payload": {
+                "Name": "sale",
+                "incrementId_Increment_DependentView": "Increment#3",
+                "decrementId_Decrement_DependentView": "Decrement#1"
+            },
+            "expectedToSucceed": true,
+            "thenMarkAsReady": false,
+            "expectedAttributeValues": [],
+            "expectedBOStates": [
+                {
+                    "boId": "Duality#2",
+                    "expectedStateName": "conversion"
+                },
+                {
+                    "boId": "Duality#3",
+                    "expectedStateName": "conversion"
+                },
+                {
+                    "boId": "EconomicEvent#4",
+                    "expectedStateName": "dualEvent"
+                },
+                {
+                    "boId": "EconomicEvent#5",
+                    "expectedStateName": "dualEvent"
+                }
+            ]
+        }
+    ]
+}
