@@ -3,7 +3,9 @@
 
 
 CLI application that supports the execution of a test suite on a B-MERODE chaincode, deployed on a HLF network.
-The below video provides the explanation and a demonstration. The remainder of the README provides all the detailed explanations.
+The below video provides the explanation and a demonstration. The remainder of the README provides all the detailed explanations. The test suite used as demonstration has been developed for a B-MERODE model developed by Wim Laurier, and based on the MERODE model presented in the following paper:
+
+Laurier, W., Horiuchi, S., & Snoeck, M. (2021). An executable axiomatization of the REA2 ontology. Journal of Information Systems, 35(3), 133-154.
 
 [![B-MERODE Chaincode Tester Demo](https://img.youtube.com/vi/V4gcxtX9kZk/0.jpg)](https://www.youtube.com/watch?v=V4gcxtX9kZk)
 
