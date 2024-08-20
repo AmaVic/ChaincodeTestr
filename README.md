@@ -414,6 +414,3 @@ The program will then be executed as follows:
 3. Execute each test in the test suite, even if some of them fail, and output the results
 4. Output the test suite results summary
 5. Close the connection to the HLF network
-
-# License
-ChaincodeTestr © 2023 by Victor Amaral De Sousa is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
