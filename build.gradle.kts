@@ -1,12 +1,11 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.7.21"
+    kotlin("jvm") version "2.0.20"
     application
 }
 
 group = "be.vamaralds"
-version = "0.3"
+version = "1.0"
 
 repositories {
     mavenCentral()
@@ -28,10 +27,10 @@ tasks.test {
     useJUnitPlatform()
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
-}
-
 application {
     mainClass.set("MainKt")
+}
+
+kotlin {
+  jvmToolchain(8)
 }
