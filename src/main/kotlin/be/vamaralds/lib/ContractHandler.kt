@@ -13,15 +13,21 @@ class ContractHandler(private val contract: Contract) {
 
     fun runTestSuite(testSuite: ChaincodeTestSuite): ChaincodeTestSuiteResult {
         val results = testSuite.testsCases.map { testCase ->
-            Pair(testCase, runTest(testCase))
+            Pair(testCase, runSingleTest(testCase))
         }.toMap()
 
         return ChaincodeTestSuiteResult(testSuite.name, results)
     }
 
-    private fun runTest(test: ChaincodeTestCase): ChaincodeTestResult {
-        ChaincodeApplication.logger.info { "Running test: ${test.name}" }
+    fun runSingleTest(test: ChaincodeTestCase): ChaincodeTestResult {
+        return runSingleTest(test, this)
+    }
+
+    fun runSingleTest(test: ChaincodeTestCase, validationHandler: ContractHandler): ChaincodeTestResult {
+        ChaincodeApplication.logger.debug { "Running test: ${test.name}" }
         val errors = mutableListOf<String>()
+        val validatedObjects = mutableMapOf<String, JsonBusinessObject>()
+        
         try {
             handleEvent(test.businessEventName, test.payload)
             if(!test.expectedToSucceed)
@@ -32,15 +38,16 @@ class ContractHandler(private val contract: Contract) {
 
         } catch(e: ContractTransactionException) {
             if(test.expectedToSucceed)
-                return FailedChaincodeTestResult(test, listOf("Expected transaction to succeed, but it failed (${e.stackTrace})"))
+                return FailedChaincodeTestResult(test, listOf("Expected transaction to succeed, but it failed: ${e.message}"))
         }
 
         test.expectedAttributeValues.forEach { expectedAttributeValue ->
             var boJson: JsonBusinessObject?
             try {
-                boJson = getBusinessObject(expectedAttributeValue.boId)
+                boJson = validationHandler.getBusinessObject(expectedAttributeValue.boId)
+                validatedObjects[expectedAttributeValue.boId] = boJson
             } catch(e: ContractTransactionException) {
-                errors.add("Failed to get Business Object with id: ${expectedAttributeValue.boId}")
+                errors.add("Failed to get Business Object with id: ${expectedAttributeValue.boId} - ${e.message}")
                 return FailedChaincodeTestResult(test, errors)
             }
 
@@ -53,9 +60,10 @@ class ContractHandler(private val contract: Contract) {
         test.expectedBOStates.forEach { expectedState ->
             var boJson: JsonBusinessObject?
             try {
-                boJson = getBusinessObject(expectedState.boId)
+                boJson = validationHandler.getBusinessObject(expectedState.boId)
+                validatedObjects[expectedState.boId] = boJson
             } catch(e: ContractTransactionException) {
-                errors.add("Failed to get Business Object with id: ${expectedState.boId}")
+                errors.add("Failed to get Business Object with id: ${expectedState.boId} - ${e.message}")
                 return FailedChaincodeTestResult(test, errors)
             }
 
@@ -66,7 +74,7 @@ class ContractHandler(private val contract: Contract) {
         }
 
         return if(errors.isEmpty())
-            SuccessfulChaincodeTestResult(test)
+            SuccessfulChaincodeTestResult(test, validatedObjects)
         else
             FailedChaincodeTestResult(test, errors)
     }
@@ -151,10 +159,10 @@ class ContractHandler(private val contract: Contract) {
 
     @Throws(ContractTransactionException::class)
     fun evaluateTransaction(transactionName: String, vararg args: String): String {
-        ChaincodeApplication.logger.info { "Evaluating transaction $transactionName with args: ${args.joinToString()}" }
+        ChaincodeApplication.logger.debug { "Evaluating transaction $transactionName with args: ${args.joinToString()}" }
         try {
             val result = contract.evaluateTransaction(transactionName, *args).toString(Charsets.UTF_8)
-            ChaincodeApplication.logger.info { "Transaction $transactionName evaluated successfully - Result: $result" }
+            ChaincodeApplication.logger.debug { "Transaction $transactionName evaluated successfully - Result: $result" }
             return result
         } catch(e: Exception) {
             when(e) {

@@ -13,7 +13,8 @@ data class ChaincodeTestCase(
     val expectedAttributeValues: List<ExpectedAttributeValue<*>> = emptyList(),
     val expectedBOStates: List<ExpectedState> = emptyList(),
     val expectedToSucceed: Boolean = true,
-    val thenMarkAsReady: Boolean = false
+    val thenMarkAsReady: Boolean = false,
+    val submittedBy: String? = null // Organization name that submits this transaction
 ) {
     companion object {
         fun fromJson(json: String): ChaincodeTestCase {
@@ -36,7 +37,8 @@ data class ChaincodeTestCase(
                 ExpectedState(boId, expectedStateName)
             }
             val expectedToSucceed = jsonObject.getBoolean("expectedToSucceed")
-            return ChaincodeTestCase(name, businessEventName, payload, expectedAttributeValues, expectedBOStates, expectedToSucceed, thenMarkAsReady)
+            val submittedBy = if (jsonObject.has("submittedBy")) jsonObject.optString("submittedBy") else null
+            return ChaincodeTestCase(name, businessEventName, payload, expectedAttributeValues, expectedBOStates, expectedToSucceed, thenMarkAsReady, submittedBy)
         }
     }
 }
@@ -46,6 +48,13 @@ sealed interface ChaincodeTestResult {
     fun toJsonString(): String = JSONObject(this).toString()
 }
 
-data class SuccessfulChaincodeTestResult(override val testCase: ChaincodeTestCase): ChaincodeTestResult
-data class FailedChaincodeTestResult(override val testCase: ChaincodeTestCase, val reasons: List<String> = emptyList()): ChaincodeTestResult
+data class SuccessfulChaincodeTestResult(
+    override val testCase: ChaincodeTestCase,
+    val validatedObjects: Map<String, JsonBusinessObject> = emptyMap()
+): ChaincodeTestResult
+
+data class FailedChaincodeTestResult(
+    override val testCase: ChaincodeTestCase,
+    val reasons: List<String> = emptyList()
+): ChaincodeTestResult
 
