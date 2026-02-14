@@ -126,10 +126,10 @@ class ContractHandler(private val contract: Contract) {
 
     @Throws(ContractTransactionException::class)
     fun submitTransaction(transactionName: String, vararg args: String): String {
-        ChaincodeApplication.logger.debug { "Submitting transaction $transactionName with args: ${args.joinToString()}" }
+        ChaincodeApplication.logger.info { "Submitting transaction $transactionName with args: ${args.joinToString()}" }
         try {
             val result = contract.submitTransaction(transactionName, *args).toString(Charsets.UTF_8)
-            ChaincodeApplication.logger.debug { "Transaction $transactionName submitted successfully - Result: $result" }
+            ChaincodeApplication.logger.info { "Transaction $transactionName submitted successfully - Result: $result" }
             return result
         } catch(e: Exception) {
             when(e) {

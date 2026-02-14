@@ -24,7 +24,9 @@ class MultiOrgConnectionManager(
         }
         
         // Create new connection
-        ChaincodeApplication.logger.debug { "Creating connection for organization: $orgName" }
+        ChaincodeApplication.logger.info { "Creating connection for organization: $orgName" }
+        ChaincodeApplication.logger.info { "  Wallet: ${workspaceManager.getWalletPath(orgName)}" }
+        ChaincodeApplication.logger.info { "  Identity: ${workspaceManager.getIdentityName(orgName)}" }
         
         val config = ConnectionConfiguration(
             walletPath = workspaceManager.getWalletPath(orgName),
@@ -37,7 +39,7 @@ class MultiOrgConnectionManager(
         val connection = ChaincodeTestr(config).connect()
         connections[orgName] = connection
         
-        ChaincodeApplication.logger.debug { "Successfully created connection for organization: $orgName" }
+        ChaincodeApplication.logger.info { "Successfully created connection for organization: $orgName" }
         return connection
     }
     
