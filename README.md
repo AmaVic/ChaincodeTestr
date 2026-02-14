@@ -201,29 +201,89 @@ The application automatically:
 
 ```
 ===== ChaincodeTestr v1.0 - Workspace Mode =====
-Workspace: /Users/user/Dev/myworkspace
-Test Suite: /Users/user/test-suite.json
-Chaincode: myChaincode
+Workspace: /Users/vamarald/Dev/testn
+Test Suite: /Users/vamarald/Dev/ChaincodeTestr/src/test/resources/multi-org-test-suite.json
+Chaincode: mychaincode
 ===== Initializing Workspace =====
 Discovered 2 organization(s): org1, org2
 ===== Parsing Test Suite =====
 Test Suite Successfully Parsed: 8 test cases found
-Initialization Organization: org1 (from test case: 'Initialize Collaboration')
+Initialization Organization: org1 (from test case: 'Create First EconomicAgent (Elmo) as Org1')
 ===== Initializing Connection Manager =====
 Successfully connected to network as org1
 ===== Initializing Collaboration as org1 =====
 Collaboration initialized successfully
-===== Running Test Suite =====
-  Executing 'Create First Agent as Org1' as org1...
-Test Case: Create First Agent as Org1 Successful ✅
-  Executing 'Create Second Agent as Org2' as org2...
-Test Case: Create Second Agent as Org2 Successful ✅
-  ...
-===== Test Suite Results Summary =====
-Number of Tests: 8
-Number of Successful Tests: 7
-Number of Failed Tests: 1
+
+========================================
+  Running Test Suite
+========================================
+
+[Test 1/8]
+  Name: Create First EconomicAgent (Elmo) as Org1
+  Org:  org1
+  Status: ✅ PASSED.
+  Result: Created/Modified EconomicAgent#0
+          └─ name: Elmo
+
+[Test 2/8]
+  Name: Create Second EconomicAgent (Cookie) as Org1 for Org2
+  Org:  org1
+  Status: ✅ PASSED.
+  Result: Created/Modified EconomicAgent#1
+          └─ name: Cookie
+
+[Test 3/8]
+  Name: Create Economic Resource (Cookie) from Org1
+  Org:  org1
+  Status: ✅ PASSED.
+  Result: Created/Modified EconomicResource#0
+          └─ name: Cookie
+
+[Test 4/8]
+  Name: Create Economic Resource (Cash) from Org2
+  Org:  org2
+  Status: ✅ PASSED.
+  Result: Created/Modified EconomicResource#1
+          └─ name: Cash
+
+[Test 5/8]
+  Name: Register Ownership of Cash by Cookie (from Org2)
+  Org:  org2
+  Status: ✅ PASSED.
+  Result: Created/Modified Ownership#0
+          └─ name: CashOwnedByCookie
+
+[Test 6/8]
+  Name: Register Ownership of Cookie by Elmo (from Org1)
+  Org:  org1
+  Status: ✅ PASSED.
+  Result: Created/Modified Ownership#1
+          └─ name: CookieOwnedByElmo
+
+[Test 7/8]
+  Name: Create Economic Event (delivery) from Org1
+  Org:  org1
+  Status: ✅ PASSED.
+  Result: Created/Modified EconomicEvent#0
+          └─ name: delivery
+
+[Test 8/8]
+  Name: Create Economic Event (payment) from Org2
+  Org:  org2
+  Status: ❌ FAILED.
+  Error:  Expected state of Business Object EconomicEvent#0 to be business event, but it was businessEvent, Expected state of Business Object EconomicEvent#1 to be business event, but it was businessEvent
+
+⚠️  Test failed - stopping test suite execution
+
+========================================
+  SUMMARY
+========================================
+Total Tests:  8
+Passed:       7 ✅
+Failed:       1 ❌
+========================================
 ===== Closing Connections =====
+INFO ChaincodeApplication - Closing all connections (2 organizations)
 ```
 
 ---
@@ -287,8 +347,6 @@ Use the `--legacy` flag to run old test suites without modification:
 ## License
 
 This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
-
----
 
 ## Related Projects
 
