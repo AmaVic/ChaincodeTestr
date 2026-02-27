@@ -359,5 +359,5 @@ If you use this software in your research, please cite:
 
 Laurier, W., Horiuchi, S., & Snoeck, M. (2021). An executable axiomatization of the REA2 ontology. Journal of Information Systems, 35(3), 133-154.
 
-## Contributors and Funding
-This project is developed and maintained by Victor Amaral de Sousa. It has been requested and funded by Wim Laurier and Satoshi Horiuchi, respectively from the Université Catholique de Louvain (Belgium) and the University of Chuo (Japan).
+## Funding
+The latest version (v1.0) of this work was supported by the *Fund for the Promotion of Joint International Research (Fostering Joint International Research (B))* of the **Japan Society for the Promotion of Science (JSPS)** under Grant Number **19KK0037**.
